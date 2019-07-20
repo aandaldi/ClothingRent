@@ -114,3 +114,7 @@ class User(Resource):
             return {"message":"User Already axists"}, 400                
         user.save_to_db()
         return {"message" : "User created successfully."}, 201
+
+class UserLists(Resource):
+    def get(self):
+        return {'users':[x.json() for x in UserModel.query.all()]}

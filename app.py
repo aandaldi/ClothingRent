@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_jwt import JWT
 
 
-from resources.user import UserRegister, User
+from resources.user import UserRegister, User, UserLists
 from resources.store import StoreRegister
 
 app = Flask(__name__)
@@ -23,6 +23,7 @@ def create_tables():
 
 api.add_resource(UserRegister,'/users/<string:full_name>')
 api.add_resource(User, '/user')
+api.add_resource(UserLists, '/users')
 api.add_resource(StoreRegister,'/newstore')
 
 
