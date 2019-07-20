@@ -28,11 +28,25 @@ class UserModel(db.Model):
         self.email = email
         self.password = password
 
+    # JSON              ==>> to give data with json format
+    def json(self):
+        return {'full_name':self.full_name, 'gender':self.gender, 'phone':self.phone,
+            'address': self.address, 'email' : self.email}
+
+    @classmethod
+    def find_by_name(cls, full_name):
+        return cls.query.filter_by(full_name = full_name).first()
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
-     
+    # def update_db(self, name):
+    #     db.session.
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()     
         
 
 

@@ -52,16 +52,65 @@ class UserRegister(Resource):
         required=True,
         help = "this field cannot be blank"
     )
+    
+    # GET
+    def get(self, full_name):
+        user = UserModel.find_by_name(full_name)
 
+        if user:
+            return user.json()
+        return {'message': 'User Not Found'}, 404
+
+    # PUT
+    def put(self, full_name):
+        data = UserRegister.parser.parse_args()
+        user = UserModel.find_by_name(full_name)
+        
+        if user is None:
+            print("data tidak di temukan")
+            user = UserModel(**data)
+            print(user.json())
+
+            print("data berhasil di ditambahkan")
+            
+        else:
+            print("data di temukan")
+
+            user.full_name = data['full_name']
+            user.gender    = data['gender']
+            user.phone     = data['phone']
+            user.address   = data['address']
+            user.email     = data['email']
+
+            print(user.json())
+
+
+            print("data berhasil diupdate")
+
+        user.save_to_db()
+
+    # DELETE
+    def delete(self, full_name):
+        user = UserModel.find_by_name(full_name)
+
+        if user:
+            print("ditemukan")
+            user.delete_from_db()
+            return {"message": "Users delete"}
+        print("ngga ada")
+        return {"message": "User Not Deleted"}
+
+
+class User(Resource):
     # POST
     def post(self):
         data = UserRegister.parser.parse_args()
-
-        print("ini data")
-        print(data)
+        full_name = data['full_name']
         user = UserModel(**data)
-        print("usernya adalah")
-        print (user)
+        print(full_name)
+        # print ('data User adalah : ', user)
+        if UserModel.find_by_name(full_name):
+            print("A User with name '{}' already axists.".format(full_name))
+            return {"message":"User Already axists"}, 400                
         user.save_to_db()
-
         return {"message" : "User created successfully."}, 201
