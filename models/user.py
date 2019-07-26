@@ -16,6 +16,8 @@ class UserModel(db.Model):
     email        = db.Column(db.String(80))
     password     = db.Column(db.String(80))
 
+    transaction = db.relationship('TransactionModel', lazy='dynamic')
+
     def __init__(self, date_created, created_by, date_modified, modified_by, full_name, gender, phone, address, email, password):
         self.date_created = date_created
         self.created_by = created_by
@@ -35,6 +37,7 @@ class UserModel(db.Model):
 
     @classmethod
     def find_by_name(cls, full_name):
+        print(full_name)
         return cls.query.filter_by(full_name = full_name).first()
 
     def save_to_db(self):

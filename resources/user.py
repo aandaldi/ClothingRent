@@ -64,6 +64,7 @@ class UserRegister(Resource):
     # PUT
     def put(self, full_name):
         data = UserRegister.parser.parse_args()
+        print(data)
         user = UserModel.find_by_name(full_name)
         
         if user is None:
@@ -88,6 +89,7 @@ class UserRegister(Resource):
             print("data berhasil diupdate")
 
         user.save_to_db()
+        return {"message":"data has been saved"}
 
     # DELETE
     def delete(self, full_name):

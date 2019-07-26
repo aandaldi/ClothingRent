@@ -5,7 +5,9 @@ from flask_jwt import JWT
 
 
 from resources.user import UserRegister, User, UserLists
-from resources.store import StoreRegister
+from resources.store import StoreRegister, StoreList
+from resources.product import Product
+from resources.transaction import Transaction
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://local:local@localhost/fashion_rent'
@@ -21,10 +23,15 @@ def home():
 def create_tables():
     db.create_all()
 
+# ENDPOINT
 api.add_resource(UserRegister,'/users/<string:full_name>')
 api.add_resource(User, '/user')
+api.add_resource(StoreRegister,'/store/<string:name>')
+api.add_resource(Product, '/product/<string:name>')
+api.add_resource(Transaction, '/transaction/<string:id>')
 api.add_resource(UserLists, '/users')
-api.add_resource(StoreRegister,'/newstore')
+api.add_resource(StoreList,'/stores')
+
 
 
 if __name__=="__main__":
