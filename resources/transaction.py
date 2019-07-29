@@ -25,4 +25,40 @@ class Transaction(Resource):
         print(transaction)
         transaction.save_to_db()
         
-        return {"message": "data has been saved"}
+        return {"message": "data has been saved"}, 201
+
+    # GET
+    def get(self, id):
+        transaction = TransactionModel.find_by_name(id)
+        if transaction:
+            return transaction.json()
+        return{"message":"Transaction not found"}, 404
+
+    # DELETE
+    def delete(self, id):
+        transaction = TransactionModel.find_by_name(id)
+        if transaction:
+            transaction.delete_from_db()
+            return{"message":"Transaction has been delete"}, 200
+        return{"message":"Transaction not found"}, 404
+    
+    # PUT
+    def put(self, id):
+        data = Transaction.parser.parse_args()
+        transaction = TransactionModel.find_by_name(id)
+
+        if transaction:
+            transaction.start_date=data['start_date']
+            transaction.end_date=data['end_date']
+            transaction.total_price=data['total_price']
+            transaction.modified_by=data['modified_by']
+            print(transaction.modified_by)
+            transaction.save_to_db()
+
+            return{"message":"data has been update"}
+        
+        transaction = TransactionModel(**data)
+        print(transaction)
+        transaction.save_to_db()
+        
+        return {"message": "data has been saved"}, 201

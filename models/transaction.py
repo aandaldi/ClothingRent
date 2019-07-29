@@ -1,5 +1,4 @@
 from db import db
-
 class TransactionModel(db.Model):
     __tablename__ = 'transactions'
 
@@ -29,19 +28,20 @@ class TransactionModel(db.Model):
         self.total_price = total_price
 
     def json(self):
-        return {'date_created' :  self.date_created, 'created_by' :  self.created_by,'date_modified' :  self.date_modified, 'modified_by' :  self.modified_by,
-           'product_id' :  self.product_id, 'owner_id' :  self.owner_id, 'start_date' :  self.start_date, 'end_date' :  self.end_date, 'total_price' :  self.total_price }
+        # return {'date_created' :  self.date_created.strftime("%Y-%m-%d %H:%M:%S:%f"), 'created_by' :  self.created_by,'date_modified' :  self.date_modified, 'modified_by' :  self.modified_by,
+        #    'product_id' :  self.product_id, 'owner_id' :  self.owner_id, 'start_date' :  self.start_date, 'end_date' :  self.end_date, 'total_price' :  self.total_price }
+        return "oke"
 
     @classmethod
     def find_by_name(cls, _id):
         return cls.query.filter_by(id=_id).first()
-        
+
 
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
 
-    def delete_from_db():
+    def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
     
