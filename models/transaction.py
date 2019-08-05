@@ -1,14 +1,14 @@
 from db import db
+
 class TransactionModel(db.Model):
     __tablename__ = 'transactions'
 
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime)
+    id = db.Column(db.Integer, primary_key=True)    date_created = db.Column(db.DateTime)
     created_by = db.Column(db.String(80))
     date_modified = db.Column(db.DateTime)
     modified_by = db.Column(db.String(80))
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
-    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    product_uuid= db.Column(db.Integer, db.ForeignKey('products.id'))
+    owner_uuid = db.Column(db.Integer, db.ForeignKey('users.id'))
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     total_price = db.Column(db.String(25))

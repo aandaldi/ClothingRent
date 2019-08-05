@@ -1,12 +1,12 @@
 from db import db
+
 # import models.product
 import models.transaction
 
 class StoreModel(db.Model):
     __tablename__ = 'stores'
 
-    id           = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime)
+    id = db.Column(db.Integer, primary_key=True)    date_created = db.Column(db.DateTime)
     created_by   = db.Column(db.String(80))
     date_modified= db.Column(db.DateTime)
     modified_by  = db.Column(db.String(80))

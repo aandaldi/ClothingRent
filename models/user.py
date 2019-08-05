@@ -4,8 +4,7 @@ class UserModel(db.Model):
     __tablename__ = 'users'
 
     # Table Column
-    id           = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime)
+    id = db.Column(db.Integer, primary_key=True)    date_created = db.Column(db.DateTime)
     created_by   = db.Column(db.String(80))
     date_modified= db.Column(db.DateTime)
     modified_by  = db.Column(db.String(80))
@@ -39,6 +38,10 @@ class UserModel(db.Model):
     def find_by_name(cls, full_name):
         print(full_name)
         return cls.query.filter_by(full_name = full_name).first()
+
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query.filter_by(id=_id).first()
 
     def save_to_db(self):
         db.session.add(self)

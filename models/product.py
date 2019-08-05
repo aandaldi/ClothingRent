@@ -3,8 +3,7 @@ from db import db
 class ProductModel(db.Model):
     __tablename__ = "products"
 
-    id           = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime)
+    id = db.Column(db.Integer, primary_key=True)    date_created = db.Column(db.DateTime)
     created_by   = db.Column(db.String(80))
     date_modified= db.Column(db.DateTime)
     modified_by  = db.Column(db.String(80))
@@ -14,7 +13,7 @@ class ProductModel(db.Model):
     size         = db.Column(db.String(80))
     details      = db.Column(db.String(80))
     price        = db.Column(db.Float(precision=2))
-    store_id     = db.Column(db.Integer, db.ForeignKey('stores.id'))
+    store_uuid   = db.Column(db.Integer, db.ForeignKey('stores.id'))
     
     
     store = db.relationship('StoreModel')
